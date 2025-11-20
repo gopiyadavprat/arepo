@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --void: #050505;
+  --silver: #E2E2E2;
+  --lime: #CCFF00;
+  --graphite: #1A1A1A;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-void: var(--void);
+  --color-silver: var(--silver);
+  --color-lime: var(--lime);
+  --color-graphite: var(--graphite);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-syne: var(--font-syne);
+  --font-space: var(--font-space);
+  --font-mono: var(--font-geist-mono);
+
+  --animate-grain: grain 8s steps(10) infinite;
+
+  @keyframes grain {
+
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+
+    10% {
+      transform: translate(-5%, -10%);
+    }
+
+    20% {
+      transform: translate(-15%, 5%);
+    }
+
+    30% {
+      transform: translate(7%, -25%);
+    }
+
+    40% {
+      transform: translate(-5%, 25%);
+    }
+
+    50% {
+      transform: translate(-15%, 10%);
+    }
+
+    60% {
+      transform: translate(15%, 0%);
+    }
+
+    70% {
+      transform: translate(0%, 15%);
+    }
+
+    80% {
+      transform: translate(3%, 35%);
+    }
+
+    90% {
+      transform: translate(-10%, 10%);
+    }
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--void);
+  color: var(--silver);
+  font-family: var(--font-space);
+  cursor: none;
+  /* Hide default cursor for custom one */
+}
+
+/* Selection Color */
+::selection {
+  background: var(--lime);
+  color: var(--void);
+}
+
+/* Lenis Smooth Scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Utilities */
+.text-display {
+  font-family: var(--font-syne);
+}
+
+.text-body {
+  font-family: var(--font-space);
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+}
+
+.blend-difference {
+  mix-blend-mode: difference;
 }
