@@ -40,7 +40,7 @@ export function Portfolio() {
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
 
     return (
-        <section ref={targetRef} className="relative h-[300vh] bg-void">
+        <section id="portfolio" ref={targetRef} className="relative h-[300vh] bg-void">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
                 <motion.div style={{ x }} className="flex gap-10 px-10">
                     {/* Title Card */}

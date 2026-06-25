@@ -18,7 +18,7 @@ const testimonials = [
 
 export function Testimonials() {
     return (
-        <section className="py-32">
+        <section id="testimonials" className="py-32">
             <div className="container mx-auto px-4 md:px-10">
                 <div className="grid gap-20 md:grid-cols-2">
                     {testimonials.map((t, i) => (

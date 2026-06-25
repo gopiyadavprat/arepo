@@ -1,5 +1,7 @@
+import { Navbar } from "@/app/components/sections/Navbar";
 import { Hero } from "@/app/components/sections/Hero";
 import { Services } from "@/app/components/sections/Services";
+import { Stats } from "@/app/components/sections/Stats";
 import { Process } from "@/app/components/sections/Process";
 import { Portfolio } from "@/app/components/sections/Portfolio";
 import { TechStack } from "@/app/components/sections/TechStack";
@@ -10,7 +12,9 @@ import { Footer } from "@/app/components/sections/Footer";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col bg-void text-silver">
+      <Navbar />
       <Hero />
+      <Stats />
       <Services />
       <Portfolio />
       <Process />

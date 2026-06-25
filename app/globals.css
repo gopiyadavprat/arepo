@@ -68,8 +68,7 @@ body {
   background: var(--void);
   color: var(--silver);
   font-family: var(--font-space);
-  cursor: none;
-  /* Hide default cursor for custom one */
+
 }
 
 /* Selection Color */

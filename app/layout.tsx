@@ -3,8 +3,8 @@ import { Syne, Space_Grotesk, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "./components/SmoothScroll";
 import { NoiseOverlay } from "./components/ui/NoiseOverlay";
-import { CustomCursor } from "./components/ui/CustomCursor";
 import { Preloader } from "./components/ui/Preloader";
+import { ScrollProgress } from "./components/ui/ScrollProgress";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -25,8 +25,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AGENCY | Digital Alchemy",
-  description: "We blend raw technical precision with fluid, organic motion.",
+  title: "STT | We Build What Others Can't",
+  description:
+    "Engineering digital excellence — from idea to production, flawlessly. Premium web development, creative technology, and digital product design.",
+  openGraph: {
+    title: "STT | We Build What Others Can't",
+    description:
+      "Engineering digital excellence — from idea to production, flawlessly.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -42,7 +49,7 @@ export default function RootLayout({
         <SmoothScroll>
           <Preloader />
           <NoiseOverlay />
-          <CustomCursor />
+          <ScrollProgress />
           {children}
         </SmoothScroll>
       </body>

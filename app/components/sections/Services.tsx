@@ -35,7 +35,7 @@ export function Services() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     return (
-        <section className="py-32">
+        <section id="services" className="py-32">
             <div className="container mx-auto px-4 md:px-10">
                 <div className="mb-20 border-b border-white/10 pb-10">
                     <h2 className="font-display text-6xl uppercase text-silver md:text-8xl">

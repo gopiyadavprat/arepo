@@ -48,7 +48,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 
     return (
         <div className="flex flex-nowrap overflow-hidden whitespace-nowrap leading-[0.8]">
-            <motion.div className="flex flex-nowrap text-9xl font-black uppercase text-silver/20" style={{ x }}>
+            <motion.div className="flex flex-nowrap text-9xl font-black uppercase text-void/15" style={{ x }}>
                 <span className="mr-8 block">{children} </span>
                 <span className="mr-8 block">{children} </span>
                 <span className="mr-8 block">{children} </span>

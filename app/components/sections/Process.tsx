@@ -27,7 +27,7 @@ const steps = [
 
 export function Process() {
     return (
-        <section className="border-y border-white/10 bg-graphite py-32">
+        <section id="process" className="border-y border-white/10 bg-graphite py-32">
             <div className="container mx-auto px-4 md:px-10">
                 <div className="mb-20 flex flex-col justify-between gap-10 md:flex-row md:items-end">
                     <h2 className="font-display text-6xl uppercase text-silver md:text-8xl">

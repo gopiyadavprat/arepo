@@ -22,7 +22,7 @@ export function Hero() {
     }, []);
 
     return (
-        <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden px-4 pt-20 md:px-10">
+        <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden px-4 pt-24 md:px-10">
             <InteractiveGrid />
             <div
                 className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
@@ -37,9 +37,23 @@ export function Hero() {
                     transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                     className="relative z-10"
                 >
-                    <h1 className="font-display text-[12vw] leading-[0.8] tracking-tighter text-silver mix-blend-difference md:text-[10vw]">
-                        DIGITAL <br />
-                        <span className="ml-[10vw] text-lime">ALCHEMY</span>
+                    {/* Badge */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.6 }}
+                        className="mb-6 inline-flex items-center gap-2 rounded-full border border-lime/30 bg-lime/10 px-4 py-1.5"
+                    >
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-lime" />
+                        <span className="font-mono text-xs uppercase tracking-widest text-lime">
+                            Trusted by 150+ companies
+                        </span>
+                    </motion.div>
+
+                    <h1 className="font-display text-[12vw] leading-[0.85] tracking-tighter text-silver mix-blend-difference md:text-[10vw]">
+                        WE BUILD <br />
+                        <span className="ml-[10vw] text-lime">WHAT OTHERS</span> <br />
+                        <span className="ml-[5vw]">CAN&apos;T</span>
                     </h1>
                 </motion.div>
 
@@ -50,8 +64,8 @@ export function Hero() {
                     className="mt-10 flex flex-col items-start justify-between gap-10 border-t border-white/10 pt-10 md:flex-row md:items-center"
                 >
                     <p className="max-w-md font-mono text-sm uppercase tracking-widest text-gray-400">
-                        We transmute raw code into <br />
-                        immersive digital experiences.
+                        Engineering digital excellence — <br />
+                        from idea to production, flawlessly.
                     </p>
 
                     <MagneticButton>
