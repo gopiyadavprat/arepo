@@ -1,9 +1,10 @@
 import { Navbar } from "@/app/components/sections/Navbar";
 import { Hero } from "@/app/components/sections/Hero";
-import { Services } from "@/app/components/sections/Services";
+import { ClientMarquee } from "@/app/components/sections/ClientMarquee";
 import { Stats } from "@/app/components/sections/Stats";
-import { Process } from "@/app/components/sections/Process";
+import { Services } from "@/app/components/sections/Services";
 import { Portfolio } from "@/app/components/sections/Portfolio";
+import { Process } from "@/app/components/sections/Process";
 import { TechStack } from "@/app/components/sections/TechStack";
 import { Testimonials } from "@/app/components/sections/Testimonials";
 import { CTA } from "@/app/components/sections/CTA";
@@ -14,6 +15,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col bg-void text-silver">
       <Navbar />
       <Hero />
+      <ClientMarquee />
       <Stats />
       <Services />
       <Portfolio />

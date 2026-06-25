@@ -115,3 +115,37 @@ html.lenis body {
 .blend-difference {
   mix-blend-mode: difference;
 }
+
+/* Glowing Border Animation */
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes glow-rotate {
+  0% {
+    --glow-angle: 0deg;
+  }
+  100% {
+    --glow-angle: 360deg;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(204, 255, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(204, 255, 0, 0.4);
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SpotlightCard } from "@/app/components/ui/SpotlightCard";
 
 const steps = [
     {
@@ -38,24 +39,37 @@ export function Process() {
                     </p>
                 </div>
 
-                <div className="grid gap-px bg-white/10 md:grid-cols-4">
+                <div className="grid gap-4 md:grid-cols-4">
                     {steps.map((step, index) => (
-                        <div key={index} className="group relative bg-void p-8 transition-colors hover:bg-white/5">
-                            <div className="mb-10 font-mono text-xs text-lime">PHASE // {step.phase}</div>
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.15, duration: 0.6 }}
+                        >
+                            <SpotlightCard className="h-full rounded-xl">
+                                <div className="p-8">
+                                    <div className="mb-10 font-mono text-xs text-lime">PHASE // {step.phase}</div>
 
-                            <h3 className="mb-8 font-display text-3xl uppercase text-silver">{step.name}</h3>
+                                    <h3 className="mb-8 font-display text-3xl uppercase text-silver">{step.name}</h3>
 
-                            <ul className="space-y-4">
-                                {step.details.map((detail, i) => (
-                                    <li key={i} className="flex items-center gap-3 font-mono text-sm text-gray-500 transition-colors group-hover:text-gray-300">
-                                        <span className="h-1 w-1 bg-lime" />
-                                        {detail}
-                                    </li>
-                                ))}
-                            </ul>
+                                    <ul className="space-y-4">
+                                        {step.details.map((detail, i) => (
+                                            <li key={i} className="flex items-center gap-3 font-mono text-sm text-gray-500 transition-colors group-hover:text-gray-300">
+                                                <span className="h-1 w-1 rounded-full bg-lime" />
+                                                {detail}
+                                            </li>
+                                        ))}
+                                    </ul>
 
-                            <div className="absolute bottom-0 left-0 h-1 w-0 bg-lime transition-all duration-500 group-hover:w-full" />
-                        </div>
+                                    {/* Progress line at bottom */}
+                                    <div className="mt-8 h-px w-full overflow-hidden bg-white/5">
+                                        <div className="h-full w-0 bg-lime transition-all duration-700 group-hover:w-full" />
+                                    </div>
+                                </div>
+                            </SpotlightCard>
+                        </motion.div>
                     ))}
                 </div>
             </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { TextScramble } from "@/app/components/ui/TextScramble";
 
 const services = [
     {
@@ -59,15 +60,17 @@ export function Services() {
                                 <span className="font-mono text-xl text-lime">({service.id})</span>
 
                                 <h3 className="font-display text-4xl uppercase text-silver transition-transform group-hover:translate-x-4 md:text-6xl">
-                                    {service.title}
+                                    <TextScramble className="inline-block">
+                                        {service.title}
+                                    </TextScramble>
                                 </h3>
 
                                 <div className="flex items-center gap-4 md:ml-auto">
                                     <p className="hidden max-w-xs font-mono text-sm text-gray-400 md:block">
                                         {service.description}
                                     </p>
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-void transition-colors group-hover:bg-lime group-hover:text-void">
-                                        <ArrowUpRight className="h-6 w-6" />
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-void transition-all duration-300 group-hover:bg-lime group-hover:text-void group-hover:rotate-45">
+                                        <ArrowUpRight className="h-6 w-6 transition-transform duration-300" />
                                     </div>
                                 </div>
                             </div>

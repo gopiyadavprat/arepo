@@ -2,6 +2,7 @@
 
 import { MagneticButton } from "@/app/components/ui/MagneticButton";
 import { InteractiveGrid } from "@/app/components/ui/InteractiveGrid";
+import { SplitText } from "@/app/components/ui/SplitText";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDownRight } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -32,9 +33,9 @@ export function Hero() {
             />
             <div className="container mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 100 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
                     className="relative z-10"
                 >
                     {/* Badge */}
@@ -50,17 +51,24 @@ export function Hero() {
                         </span>
                     </motion.div>
 
+                    {/* Character-by-character stagger animation */}
                     <h1 className="font-display text-[12vw] leading-[0.85] tracking-tighter text-silver mix-blend-difference md:text-[10vw]">
-                        WE BUILD <br />
-                        <span className="ml-[10vw] text-lime">WHAT OTHERS</span> <br />
-                        <span className="ml-[5vw]">CAN&apos;T</span>
+                        <SplitText delay={0.5}>WE BUILD</SplitText>
+                        <br />
+                        <span className="ml-[10vw] inline-block text-lime">
+                            <SplitText delay={0.8}>WHAT OTHERS</SplitText>
+                        </span>
+                        <br />
+                        <span className="ml-[5vw] inline-block">
+                            <SplitText delay={1.1}>CAN&apos;T</SplitText>
+                        </span>
                     </h1>
                 </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 1 }}
+                    transition={{ delay: 1.5, duration: 1 }}
                     className="mt-10 flex flex-col items-start justify-between gap-10 border-t border-white/10 pt-10 md:flex-row md:items-center"
                 >
                     <p className="max-w-md font-mono text-sm uppercase tracking-widest text-gray-400">
