@@ -5,6 +5,7 @@ import SmoothScroll from "./components/SmoothScroll";
 import { NoiseOverlay } from "./components/ui/NoiseOverlay";
 import { Preloader } from "./components/ui/Preloader";
 import { ScrollProgress } from "./components/ui/ScrollProgress";
+import { MeshGradient } from "./components/ui/MeshGradient";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -50,6 +51,7 @@ export default function RootLayout({
           <Preloader />
           <NoiseOverlay />
           <ScrollProgress />
+          <MeshGradient />
           {children}
         </SmoothScroll>
       </body>

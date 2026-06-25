@@ -149,3 +149,34 @@ html.lenis body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(204, 255, 0, 0.4);
 }
+
+/* Smooth link underline animation */
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--lime);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.5s ease;
+}
+
+/* Focus visible ring */
+*:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
+}
