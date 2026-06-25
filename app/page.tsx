@@ -4,6 +4,7 @@ import { ClientMarquee } from "@/app/components/sections/ClientMarquee";
 import { Stats } from "@/app/components/sections/Stats";
 import { Services } from "@/app/components/sections/Services";
 import { Portfolio } from "@/app/components/sections/Portfolio";
+import { Philosophy } from "@/app/components/sections/Philosophy";
 import { Process } from "@/app/components/sections/Process";
 import { TechStack } from "@/app/components/sections/TechStack";
 import { Testimonials } from "@/app/components/sections/Testimonials";
@@ -19,6 +20,7 @@ export default function Home() {
       <Stats />
       <Services />
       <Portfolio />
+      <Philosophy />
       <Process />
       <TechStack />
       <Testimonials />
