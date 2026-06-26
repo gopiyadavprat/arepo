@@ -73,7 +73,8 @@ function FloatingShape({
             transition={{
                 opacity: { delay, duration: 1 },
                 scale: { delay, duration: 1, ease: [0.22, 1, 0.36, 1] },
-                rotate: { duration: 60 + Math.random() * 40, repeat: Infinity, ease: "linear" },
+                // Use deterministic value based on delay instead of Math.random() to prevent hydration mismatch
+                rotate: { duration: 60 + (delay * 15), repeat: Infinity, ease: "linear" },
             }}
         >
             {shapeElement()}
@@ -212,6 +213,7 @@ export function Hero() {
 
             {/* Scroll indicator */}
             <motion.div
+                suppressHydrationWarning
                 className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -229,7 +231,7 @@ export function Hero() {
 
             {/* Background glow orbs */}
             <motion.div
-                style={{ y, opacity }}
+                style={{ y }}
                 className="absolute -right-[10%] top-[15%] -z-10 h-[60vw] w-[60vw] rounded-full bg-lime blur-[200px] opacity-[0.07]"
             />
             <motion.div
