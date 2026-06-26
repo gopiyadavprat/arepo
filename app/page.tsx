@@ -8,6 +8,7 @@ import { Philosophy } from "@/app/components/sections/Philosophy";
 import { Process } from "@/app/components/sections/Process";
 import { TechStack } from "@/app/components/sections/TechStack";
 import { Testimonials } from "@/app/components/sections/Testimonials";
+import { Contact } from "@/app/components/sections/Contact";
 import { CTA } from "@/app/components/sections/CTA";
 import { Footer } from "@/app/components/sections/Footer";
 
@@ -24,6 +25,7 @@ export default function Home() {
       <Process />
       <TechStack />
       <Testimonials />
+      <Contact />
       <CTA />
       <Footer />
     </main>

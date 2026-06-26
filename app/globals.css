@@ -180,3 +180,35 @@ img {
   outline: 2px solid var(--lime);
   outline-offset: 2px;
 }
+
+/* Performance: GPU-accelerate animated elements */
+[data-motion],
+.group:hover {
+  will-change: transform, opacity;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Disable heavy blur effects on mobile for perf */
+  .blur-heavy {
+    filter: none !important;
+  }
+
+  /* Reduce gradient complexity */
+  .mix-blend-screen,
+  .mix-blend-difference {
+    mix-blend-mode: normal;
+  }
+}

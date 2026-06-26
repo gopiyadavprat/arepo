@@ -58,11 +58,39 @@ export function TextScramble({
         };
     }, [isHovering, scramble, children]);
 
+    const containerRef = useRef<HTMLSpanElement>(null);
+    const hasPlayedRef = useRef(false);
+
+    // Trigger scramble on first scroll into view (mobile)
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasPlayedRef.current) {
+                    hasPlayedRef.current = true;
+                    scramble();
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, [scramble]);
+
+    const handleTap = () => {
+        scramble();
+    };
+
     return (
         <span
+            ref={containerRef}
             className={className}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
+            onTouchStart={handleTap}
         >
             {displayText}
         </span>

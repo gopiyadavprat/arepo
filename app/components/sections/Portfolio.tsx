@@ -3,34 +3,36 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useRef, MouseEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { useIsMobile } from "@/app/hooks/useDevice";
 
 const projects = [
     {
         title: "NEBULA\nFINANCE",
         category: "FINTECH",
         year: "2024",
-        color: "from-blue-600/30 via-indigo-900/40 to-black",
+        image: "/projects/nebula-v4.png",
         accent: "#6366f1",
     },
     {
         title: "CYBER\nPUNK",
         category: "GAMING",
         year: "2024",
-        color: "from-purple-600/30 via-fuchsia-900/40 to-black",
+        image: "/projects/cyberpunk-v4.png",
         accent: "#a855f7",
     },
     {
         title: "ECO\nSYSTEM",
         category: "SUSTAINABILITY",
         year: "2023",
-        color: "from-emerald-600/30 via-green-900/40 to-black",
+        image: "/projects/ecosystem-v4.png",
         accent: "#10b981",
     },
     {
         title: "VOID\nARCHIVE",
         category: "FASHION",
         year: "2023",
-        color: "from-orange-600/30 via-red-900/40 to-black",
+        image: "/projects/voidarchive.png",
         accent: "#f97316",
     },
 ];
@@ -38,9 +40,11 @@ const projects = [
 function ProjectCard({
     project,
     index,
+    isMobile,
 }: {
     project: (typeof projects)[0];
     index: number;
+    isMobile: boolean;
 }) {
     const cardRef = useRef<HTMLDivElement>(null);
     const mouseX = useMotionValue(0.5);
@@ -52,7 +56,7 @@ function ProjectCard({
     const rotateY = useSpring(useTransform(mouseX, [0, 1], [-5, 5]), { stiffness: 200, damping: 30 });
 
     function handleMouseMove(e: MouseEvent) {
-        if (!cardRef.current) return;
+        if (isMobile || !cardRef.current) return;
         const rect = cardRef.current.getBoundingClientRect();
         mouseX.set((e.clientX - rect.left) / rect.width);
         mouseY.set((e.clientY - rect.top) / rect.height);
@@ -68,82 +72,62 @@ function ProjectCard({
             ref={cardRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={{
+            style={isMobile ? {} : {
                 rotateX,
                 rotateY,
                 transformStyle: "preserve-3d",
                 perspective: "1000px",
             }}
-            className="group relative h-[70vh] w-[80vw] shrink-0 cursor-pointer overflow-hidden md:w-[50vw]"
+            className="group relative flex h-[70vh] w-[80vw] shrink-0 cursor-pointer flex-col overflow-hidden rounded-lg border border-white/5 bg-[#0a0a0a] md:w-[50vw]"
         >
-            {/* Parallax background gradient */}
+            {/* Screenshot image — properly contained */}
             <motion.div
-                className={`absolute -inset-10 bg-gradient-to-br ${project.color}`}
-                style={{ x: bgX, y: bgY }}
-            />
-
-            {/* Animated border glow on hover */}
-            <div
-                className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-                style={{
-                    boxShadow: `inset 0 0 80px ${project.accent}22, 0 0 60px ${project.accent}11`,
-                }}
-            />
-
-            {/* Grid overlay */}
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-30"
-                style={{
-                    backgroundImage: `linear-gradient(${project.accent}15 1px, transparent 1px), linear-gradient(90deg, ${project.accent}15 1px, transparent 1px)`,
-                    backgroundSize: "40px 40px",
-                }}
-            />
-
-            {/* Large number watermark */}
-            <motion.div
-                className="absolute -right-4 -top-8 font-display text-[25vw] font-bold leading-none text-white/[0.02] md:text-[15vw]"
-                style={{ x: bgX, y: bgY }}
+                className="relative flex-1 overflow-hidden"
+                style={isMobile ? {} : { x: bgX, y: bgY }}
             >
-                {String(index + 1).padStart(2, "0")}
+                <Image
+                    src={project.image}
+                    alt={project.title.replace("\n", " ")}
+                    fill
+                    className="object-contain object-top p-4 opacity-80 transition-all duration-700 group-hover:opacity-100 group-hover:scale-[1.02]"
+                    sizes="(max-width: 768px) 80vw, 50vw"
+                    priority={index < 2}
+                />
+
+                {/* Grid overlay on hover (desktop only) */}
+                {!isMobile && (
+                    <div
+                        className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-15"
+                        style={{
+                            backgroundImage: `linear-gradient(${project.accent}20 1px, transparent 1px), linear-gradient(90deg, ${project.accent}20 1px, transparent 1px)`,
+                            backgroundSize: "40px 40px",
+                        }}
+                    />
+                )}
             </motion.div>
 
-            {/* Content */}
-            <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
-                <div className="flex items-start justify-between">
-                    <div>
-                        <motion.span
-                            className="inline-block rounded-full border px-3 py-1 font-mono text-xs uppercase tracking-widest"
-                            style={{ borderColor: `${project.accent}40`, color: project.accent }}
-                        >
-                            {project.category}
-                        </motion.span>
-                    </div>
-                    <span className="font-mono text-sm text-silver/40">{project.year}</span>
-                </div>
-
+            {/* Bottom info bar */}
+            <div className="relative z-10 flex items-end justify-between border-t border-white/5 p-6 md:p-8">
                 <div>
-                    <h3 className="font-display text-5xl uppercase leading-[0.9] text-silver md:text-7xl">
+                    <span
+                        className="mb-2 inline-block rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-widest"
+                        style={{ borderColor: `${project.accent}60`, color: project.accent }}
+                    >
+                        {project.category}
+                    </span>
+                    <h3 className="font-display text-3xl uppercase leading-[0.9] text-silver md:text-5xl">
                         {project.title.split("\n").map((line, i) => (
-                            <span key={i} className="block">
-                                <motion.span
-                                    className="inline-block"
-                                    initial={{ y: 0 }}
-                                    whileHover={{ y: -5 }}
-                                >
-                                    {line}
-                                </motion.span>
-                            </span>
+                            <span key={i} className="block">{line}</span>
                         ))}
                     </h3>
-                    <div className="mt-6 flex items-center gap-3 opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-2">
-                        <div
-                            className="flex h-10 w-10 items-center justify-center rounded-full"
-                            style={{ backgroundColor: `${project.accent}20`, color: project.accent }}
-                        >
-                            <ArrowUpRight className="h-5 w-5" />
-                        </div>
-                        <span className="font-mono text-sm uppercase tracking-widest" style={{ color: project.accent }}>
-                            View Case Study
-                        </span>
+                </div>
+                <div className="flex flex-col items-end gap-3">
+                    <span className="font-mono text-xs text-silver/30">{project.year}</span>
+                    <div
+                        className="flex h-10 w-10 items-center justify-center rounded-full opacity-0 transition-all duration-500 group-hover:opacity-100 max-md:opacity-100"
+                        style={{ backgroundColor: `${project.accent}20`, color: project.accent }}
+                    >
+                        <ArrowUpRight className="h-5 w-5" />
                     </div>
                 </div>
             </div>
@@ -152,17 +136,15 @@ function ProjectCard({
 }
 
 export function Portfolio() {
+    const isMobile = useIsMobile();
     const targetRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: targetRef,
-    });
-
+    const { scrollYProgress } = useScroll({ target: targetRef });
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
 
     return (
         <section id="portfolio" ref={targetRef} className="relative h-[300vh] bg-void">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-                <motion.div style={{ x }} className="flex gap-10 px-10">
+                <motion.div style={{ x }} className="flex gap-6 px-6 md:gap-10 md:px-10">
                     {/* Title Card */}
                     <div className="flex h-[70vh] w-[80vw] shrink-0 flex-col justify-center md:w-[40vw]">
                         <motion.div
@@ -170,12 +152,9 @@ export function Portfolio() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                         >
-                            <span className="font-mono text-sm uppercase tracking-widest text-lime">
-                                // Portfolio
-                            </span>
-                            <h2 className="mt-4 font-display text-8xl uppercase leading-none text-silver md:text-[10vw]">
-                                Selected <br />
-                                <span className="text-lime">Works</span>
+                            <span className="font-mono text-sm uppercase tracking-widest text-lime">// Portfolio</span>
+                            <h2 className="mt-4 font-display text-7xl uppercase leading-none text-silver md:text-[10vw]">
+                                Selected <br /><span className="text-lime">Works</span>
                             </h2>
                             <p className="mt-8 max-w-md font-mono text-sm text-gray-500">
                                 A curated gallery of our most ambitious projects.
@@ -184,15 +163,14 @@ export function Portfolio() {
                             <div className="mt-8 flex items-center gap-3">
                                 <div className="h-px w-12 bg-lime/30" />
                                 <span className="font-mono text-xs uppercase tracking-widest text-gray-600">
-                                    Drag or scroll →
+                                    {isMobile ? "Swipe →" : "Scroll to explore →"}
                                 </span>
                             </div>
                         </motion.div>
                     </div>
 
-                    {/* Project Cards with parallax hover */}
                     {projects.map((project, index) => (
-                        <ProjectCard key={index} project={project} index={index} />
+                        <ProjectCard key={index} project={project} index={index} isMobile={isMobile} />
                     ))}
                 </motion.div>
             </div>

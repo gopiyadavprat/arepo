@@ -5,6 +5,7 @@ import { InteractiveGrid } from "@/app/components/ui/InteractiveGrid";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, MotionValue } from "framer-motion";
 import { ArrowDownRight, ArrowDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { useIsMobile } from "@/app/hooks/useDevice";
 
 // Floating geometric shapes that respond to cursor
 function FloatingShape({
@@ -81,11 +82,12 @@ function FloatingShape({
 }
 
 export function Hero() {
+    const isMobile = useIsMobile();
     const { scrollY } = useScroll();
     const y = useTransform(scrollY, [0, 1000], [0, 400]);
     const opacity = useTransform(scrollY, [0, 500], [1, 0]);
-    const scale = useTransform(scrollY, [0, 500], [1, 0.9]);
-    const textY = useTransform(scrollY, [0, 500], [0, 150]);
+    const scale = useTransform(scrollY, [0, 500], [1, isMobile ? 1 : 0.9]);
+    const textY = useTransform(scrollY, [0, 500], [0, isMobile ? 50 : 150]);
 
     const mouseX = useMotionValue(0.5);
     const mouseY = useMotionValue(0.5);
@@ -94,6 +96,7 @@ export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (isMobile) return;
         const handleMouseMove = (e: MouseEvent) => {
             mouseX.set(e.clientX / window.innerWidth);
             mouseY.set(e.clientY / window.innerHeight);
@@ -101,7 +104,7 @@ export function Hero() {
         };
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [mouseX, mouseY]);
+    }, [mouseX, mouseY, isMobile]);
 
     // Character animation for main heading
     const line1 = "WE BUILD";
@@ -120,13 +123,15 @@ export function Hero() {
                 }}
             />
 
-            {/* Floating geometric shapes */}
-            <FloatingShape shape="circle" size={80} initialX="85%" initialY="15%" rotation={0} delay={1.5} mouseX={mouseX} mouseY={mouseY} />
-            <FloatingShape shape="square" size={60} initialX="10%" initialY="20%" rotation={45} delay={1.7} mouseX={mouseX} mouseY={mouseY} />
-            <FloatingShape shape="triangle" size={50} initialX="75%" initialY="70%" rotation={15} delay={1.9} mouseX={mouseX} mouseY={mouseY} />
-            <FloatingShape shape="ring" size={120} initialX="90%" initialY="60%" rotation={0} delay={2.0} mouseX={mouseX} mouseY={mouseY} />
-            <FloatingShape shape="square" size={40} initialX="5%" initialY="75%" rotation={30} delay={2.1} mouseX={mouseX} mouseY={mouseY} />
-            <FloatingShape shape="circle" size={30} initialX="50%" initialY="10%" rotation={0} delay={2.2} mouseX={mouseX} mouseY={mouseY} />
+            {/* Floating geometric shapes — hidden on mobile via CSS */}
+            <div className="hidden md:block">
+                <FloatingShape shape="circle" size={80} initialX="85%" initialY="15%" rotation={0} delay={1.5} mouseX={mouseX} mouseY={mouseY} />
+                <FloatingShape shape="square" size={60} initialX="10%" initialY="20%" rotation={45} delay={1.7} mouseX={mouseX} mouseY={mouseY} />
+                <FloatingShape shape="triangle" size={50} initialX="75%" initialY="70%" rotation={15} delay={1.9} mouseX={mouseX} mouseY={mouseY} />
+                <FloatingShape shape="ring" size={120} initialX="90%" initialY="60%" rotation={0} delay={2.0} mouseX={mouseX} mouseY={mouseY} />
+                <FloatingShape shape="square" size={40} initialX="5%" initialY="75%" rotation={30} delay={2.1} mouseX={mouseX} mouseY={mouseY} />
+                <FloatingShape shape="circle" size={30} initialX="50%" initialY="10%" rotation={0} delay={2.2} mouseX={mouseX} mouseY={mouseY} />
+            </div>
 
             <motion.div style={{ y: textY, scale }} className="container mx-auto relative z-10">
                 {/* Badge */}
